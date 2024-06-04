@@ -25,7 +25,7 @@ export const OrdenesVendedorValues = (values, vendedores) => {
         Email: values.Email,
         TelMovil: values.TelMovil
     };
-
+ 
     // Agregar el nuevo objeto de estatus al array existente
     Vendedores.vendedor.push(nuevoVendedor);
 

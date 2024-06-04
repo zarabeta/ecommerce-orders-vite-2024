@@ -12,8 +12,6 @@ import RefreshIcon from "@mui/icons-material/Refresh";
 // DB
 import {GetOneOrder} from '../../../../services/remote/get/GetOneOrder.jsx';
 
-// Modals
-
 // Columns Table Definition.
 const columns = [
     {
@@ -71,37 +69,40 @@ const OrdenesFacturaTable = ({datosSeleccionados, setDatosSecSubdoc}) => {
         setDataRow(rowData.original);
 
         // Extraer los ids seleccionados
-        const {IdPersonaOK} = dataRow;
+        const {IdPersonaOK} = rowData.original;
         setDatosSecSubdoc({IdPersonaOK});
 
         console.log(IdPersonaOK);
     };
 
     async function fetchData() {
+        setLoadingTable(true);
         try {
             // Obtener los id's seleccionados
             const {IdInstitutoOK, IdNegocioOK, IdOrdenOK} = datosSeleccionados;
 
             // Verificar si fueron seleccionados los id's; de lo contrario, no hacer nada.
-            if (IdInstitutoOK === "0" || IdNegocioOK === "0" || IdOrdenOK === "0") {
+            if (!IdInstitutoOK || !IdNegocioOK || !IdOrdenOK) {
+                setOrdersData([]);
                 setLoadingTable(false);
                 return;
             }
 
             // Obtener los datos
             const ordersData = await GetOneOrder(IdInstitutoOK, IdNegocioOK, IdOrdenOK);
-            setOrdersData(ordersData.factura);
+            setOrdersData(ordersData.factura || []);
 
             // Cambiar el estado del indicador (loading) a false.
             setLoadingTable(false);
         } catch (error) {
             console.error("Error al obtener la data en useEffect: ", error);
+            setLoadingTable(false);
         }
     }
 
     useEffect(() => {
         fetchData();
-    }, []);
+    }, [datosSeleccionados]);
 
     return (
         <Box>
@@ -159,12 +160,7 @@ const OrdenesFacturaTable = ({datosSeleccionados, setDatosSecSubdoc}) => {
                             </Stack>
                             {/* ------- BARRA DE ACCIONES FIN ------ */}
                             {/* M O D A L E S */}
-                            {/*<Dialog open={OrdenesInfoAdShowModal}>*/}
-
-                            {/*</Dialog>*/}
-                            {/*<Dialog open={OrdenesUpdateInfoAdShowModal}>*/}
-
-                            {/*</Dialog>*/}
+            
                         </>
                     )}
                 />

@@ -8,7 +8,7 @@ import OrdenesDetallesTab from "../components/tabs/OrdenesDetallesTab.jsx";
 import OrdenesFormaPagoTab from "../components/tabs/OrdenesFormaPagoTab.jsx";
 import OrdenesFacturaTab from "../components/tabs/shippingsTabs/OrdenesFacturaTab.jsx";
 import OrdenesClientes from "../components/tabs/shippingsTabs/OrdenesClientes.jsx";
-import OrdenesVendedor from "../components/tabs/shippingsTabs/OrdenesVendedor.jsx";
+import OrdenesVendedor from "../components/tabs/OrdenesVendedor.jsx";
 import OrdenesEnviosTab from "../components/tabs/shippingsTabs/OrdenesEnviosTab.jsx";
 
 export default function Orders() {
@@ -23,9 +23,9 @@ export default function Orders() {
     const [datosSeleccionados, setDatosSeleccionados] = useState({
         IdInstitutoOK: "0",
         IdNegocioOK: "0",
-        IdOrdenOK: "0"
+        IdOrdenOK: "0",
     });
-
+    
     return (
         <Box>
             <OrdersNavTab
@@ -79,16 +79,6 @@ export default function Orders() {
                     datosSeleccionados={datosSeleccionados}
                 />
             }
-            {currentNameTabInPrincipalTab == "VENDEDOR" &&
-                <OrdenesVendedor
-                    datosSeleccionados={datosSeleccionados}
-                />
-            }
-            {currentNameTabInPrincipalTab == "ENVIOS" &&
-                <OrdenesEnviosTab
-                    datosSeleccionados={datosSeleccionados}
-                />
-            }
         </Box>
     );
-}
+} 

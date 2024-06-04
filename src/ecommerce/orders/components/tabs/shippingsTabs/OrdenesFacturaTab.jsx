@@ -5,6 +5,7 @@ import OrdenesFacturas from "./OrdenesFacturas.jsx";
 import OrdenesFacturaNavTab from "./OrdenesFacturaNavTab.jsx";
 import OrdenesFacturasDomicilio from "./OrdenesFacturasDomicilio.jsx";
 import OrdenesFacturasProductosTab from "./OrdenesFacturasProductosTab.jsx";
+import OrdenesVendedor from "../OrdenesVendedor.jsx";
 
 export default function OrdenesFacturaTab({datosSeleccionados}) {
 
@@ -17,7 +18,7 @@ export default function OrdenesFacturaTab({datosSeleccionados}) {
     // indicamos que el estado inicial de los datos del subdocumento
     const [datosSecSubdoc, setDatosSecSubdoc] = useState({
         IdPersonaOK: "0"
-    });
+    }); 
 
     return (
         <Box>
@@ -43,10 +44,15 @@ export default function OrdenesFacturaTab({datosSeleccionados}) {
             {currentNameTabInProveedoresTab == "PRODUCTOS" &&
                 <OrdenesFacturasProductosTab
                     datosSeleccionados={datosSeleccionados}
-                    datosSecSubdoc={datosSecSubdoc}
+                    datosSecSubdoc={datosSecSubdoc} 
                 />
             }
-
+            {currentNameTabInProveedoresTab == "VENDEDOR" &&
+                <OrdenesVendedor
+                    datosSeleccionados={datosSeleccionados}
+                    datosSecSubdoc={datosSecSubdoc}
+                />
+            } 
         </Box>
-    );
+    ); 
 }

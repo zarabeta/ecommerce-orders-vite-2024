@@ -1,7 +1,7 @@
 import axios from "axios";
 
 export function GetOnePersons(IdPersonaOK) {
-    return new Promise((resolve, reject) => {
+    return new Promise((resolve, reject) => { 
 
         axios.get(import.meta.env.VITE_API_ORDERS_URL + '/one?IdPersonaOK=' + IdPersonaOK)
             .then((response) => {

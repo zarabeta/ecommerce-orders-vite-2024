@@ -26,5 +26,5 @@ function UseVendedor({IdPersonaOK}) {
 
     return {vendedor, personaEspecifica};
 }
-
+ 
 export default UseVendedor;

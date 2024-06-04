@@ -61,7 +61,7 @@ const AddVendedorModal = ({ AddVendedorShowModal, setAddVendedorShowModal }) => 
             Alias: "",
             Nombre: "",
             ApPaterno: "",
-            ApMaterno: "",
+            ApMaterno: "", 
             FullUserName: "",
             RFC: "",
             CURP: "",
@@ -94,7 +94,7 @@ const AddVendedorModal = ({ AddVendedorShowModal, setAddVendedorShowModal }) => 
             setMensajeErrorAlert(null);
             setMensajeExitoAlert(null);
 
-            try {
+            try { 
                 const vendedor = OrdenesVendedorValues(values);
                 await AddOneVendedor(vendedor);
                 setMensajeExitoAlert("Vendedor creado y guardado correctamente");
@@ -301,7 +301,7 @@ const AddVendedorModal = ({ AddVendedorShowModal, setAddVendedorShowModal }) => 
                         loadingPosition="start"
                         startIcon={<SaveIcon />}
                         variant="contained"
-                        onClick={() => AddOneVendedor(false)}
+                        //onClick={() => AddOneVendedor(false)}
                         type="submit"
                         disabled={!!mensajeExitoAlert}
 

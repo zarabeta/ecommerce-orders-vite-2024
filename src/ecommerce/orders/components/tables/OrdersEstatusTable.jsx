@@ -28,7 +28,7 @@ const columns = [
         size: 30, //small column
     },
     {
-        accessorKey: "Actual",
+        accessorKey: "Actual", 
         header: "Actual",
         size: 30, //small column
     },
