@@ -9,8 +9,7 @@ import InfoIcon from "@mui/icons-material/Info";
 import DeleteIcon from "@mui/icons-material/Delete";
 import RefreshIcon from "@mui/icons-material/Refresh";
 
-// DB
-import {GetOneOrder} from '../../../../services/remote/get/GetOneOrder.jsx';
+import {GetOnePersons} from "../../../../services/remote/get/GetOnePersons.jsx";
 
 import AddVendedorModal from '../../../modals/addModals/AddVendedorModal.jsx';
 // Modals
@@ -73,28 +72,8 @@ const columns = [
         size: 150, //small column
     },
     {
-        accessorKey: "IdTipoPersonaOK",
-        header: "IdTipoPersonaOK",
-        size: 150, //small column
-    },
-    {
         accessorKey: "FechaNac",
         header: "FechaNac",
-        size: 150, //small column
-    },
-    {
-        accessorKey: "IdTipoEstatusOK",
-        header: "IdTipoEstatusOK",
-        size: 150, //small column
-    },
-    {
-        accessorKey: "IdRolActualOK",
-        header: "IdRolActualOK",
-        size: 150, //small column
-    },
-    {
-        accessorKey: "IdRolPrincipalOK",
-        header: "IdRolPrincipalOK",
         size: 150, //small column
     },
     {
@@ -115,17 +94,20 @@ const columns = [
 ];
 
 // Table - FrontEnd.
-const OrdenesVendedorTable = ({datosSeleccionados}) => {
+const OrdenesVendedorTable = ({setDatosSeleccionados, datosSeleccionados}) => {
 
     // controlar el estado del indicador (loading).
     const [loadingTable, setLoadingTable] = useState(true);
 
     // controlar el estado de la data.
-    const [ordersData, setOrdersData] = useState([]);
-
+    const [factsData, setfactsData] = useState([]);
+    
+    // controlar el estado que muesta u oculta el modal para insertar el nuevo subdocumento.
+    const [AddVendedorShowModal, setAddVendedorShowModal] = useState(false);
+    
     // Controlar el estado de la fila seleccionada.
     const [dataRow, setDataRow] = useState({});
-    const [AddVendedorShowModal, setAddVendedorShowModal] = useState(false);
+    
     // Función para manejar el clic en una fila
     const sendDataRow = (rowData) => {
         // Guardar la informacion seleccionada
@@ -135,17 +117,19 @@ const OrdenesVendedorTable = ({datosSeleccionados}) => {
     async function fetchData() {
         try {
             // Obtener los id's seleccionados
-            const {IdInstitutoOK, IdNegocioOK, IdOrdenOK} = datosSeleccionados;
+            const {IdPersonaOK} = datosSeleccionados;
 
             // Verificar si fueron seleccionados los id's; de lo contrario, no hacer nada.
-            if (IdInstitutoOK === "0" || IdNegocioOK === "0" || IdOrdenOK === "0") {
+            if (IdPersonaOK === "0" ) {
                 setLoadingTable(false);
                 return;
             }
-
             // Obtener los datos
-            const ordersData = await GetOneOrder(IdInstitutoOK, IdNegocioOK, IdOrdenOK);
-            setOrdersData([ordersData.vendedor]);
+            console.log(IdPersonaOK);
+            const factsData = await GetOnePersons(IdPersonaOK);
+            
+            setfactsData([factsData.vendedor]);
+
             // Cambiar el estado del indicador (loading) a false.
             setLoadingTable(false);
         } catch (error) {
@@ -163,7 +147,7 @@ const OrdenesVendedorTable = ({datosSeleccionados}) => {
                 <MaterialReactTable
                     columns={columns}
                     initialState={{density: "compact", showGlobalFilter: true}}
-                    data={ordersData}
+                    data={factsData}
                     state={{isLoading: loadingTable}}
                     enableMultiRowSelection={false}
                     enableRowSelection={true}
@@ -228,7 +212,10 @@ const OrdenesVendedorTable = ({datosSeleccionados}) => {
                     <AddVendedorModal
                         AddVendedorShowModal={AddVendedorShowModal}
                         setAddVendedorShowModal={setAddVendedorShowModal}
-                        onClose={() => setAddVendedorShowModal(false)}
+                        datosSeleccionados={datosSeleccionados}
+                        onClose={() => {
+                            setAddVendedorShowModal(false)
+                        }}
                     />
                 </Dialog>
                 

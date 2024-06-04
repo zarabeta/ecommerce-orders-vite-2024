@@ -96,7 +96,7 @@ const OrdersEstatusTable = ({setDatosSeleccionados, datosSeleccionados}) => {
                 (dataRow.IdTipoEstatusOK)
             } será eliminada, ¿Desea continuar?`
         );
-        if (res) {
+        if (res) { 
             try {
                 // Obtener el indice de la fila seleccionada
                 const selectedRowIndex = ordersData.findIndex((row) => row.IdTipoEstatusOK === dataRow.IdTipoEstatusOK);

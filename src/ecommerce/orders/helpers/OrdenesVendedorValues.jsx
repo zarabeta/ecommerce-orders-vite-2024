@@ -3,8 +3,8 @@ import {OrdenesVendedorModel} from "../models/OrdenesVendedorModel.jsx";
 import {v4 as genID} from "uuid";
 
 // obtiene los valores capturados en la ventana modal enviados desde el evento onSubmit de Formik
-export const OrdenesVendedorValues = (values, ordenesEstatus) => {
-    let OrdenesEstatus = ordenesEstatus || OrdenesVendedorModel();
+export const OrdenesVendedorValues = (values, vendedores) => {
+    let Vendedores = vendedores || OrdenesVendedorModel();
 
     // generar un id aleatorio y concatenarlo al final de IdEtiquetaOK
 
@@ -21,18 +21,13 @@ export const OrdenesVendedorValues = (values, ordenesEstatus) => {
         RFC: values.RFC,
         CURP: values.CURP,
         Sexo: values.Sexo,
-        IdTipoPersonaOK: values.IdTipoPersonaOK,
         FechaNac: values.FechaNac,
-        IdTipoEstatusOK: values.IdTipoEstatusOK,
-        IdRolActualOK: values.IdRolActualOK,
-        IdRolPrincipalOK: values.IdRolPrincipalOK,
-        FotoPerfil: values.FotoPerfil,
         Email: values.Email,
-        TelMovil: values.TelMovil,
+        TelMovil: values.TelMovil
     };
 
     // Agregar el nuevo objeto de estatus al array existente
-    OrdenesEstatus.vendedor.push(nuevoVendedor);
+    Vendedores.vendedor.push(nuevoVendedor);
 
-    return OrdenesEstatus;
+    return Vendedores;
 }

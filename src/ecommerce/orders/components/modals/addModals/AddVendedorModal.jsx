@@ -60,47 +60,48 @@ const AddVendedorModal = ({ AddVendedorShowModal, setAddVendedorShowModal }) => 
             Usuario: "",
             Alias: "",
             Nombre: "",
-            ApParterno: "",
+            ApPaterno: "",
             ApMaterno: "",
             FullUserName: "",
             RFC: "",
             CURP: "",
             Sexo: "",
-            FechaNac:  "",
-            Email:  "",
-            TelMovil:  "",
+            FechaNac: "",
+            Email: "",
+            TelMovil: "",
         },
         validationSchema: Yup.object({
-            IdOrdenOK: Yup.string()
-                .required("Campo requerido")
-                .matches(
-                    /^[a-zA-Z0-9-]+$/,
-                    "Solo se permiten caracteres alfanuméricos"
-                ),
-            IdOrdenBK: Yup.string().required("Campo requerido"),
+            IdUsuarioOK: Yup.string().required("Campo requerido").matches(
+                /^[a-zA-Z0-9-]+$/,
+                "Solo se permiten caracteres alfanuméricos"
+            ),
+            IdPersonaOK: Yup.string().required("Campo requerido"),
+            Usuario: Yup.string().required("Campo requerido"),
+            Alias: Yup.string().required("Campo requerido"),
+            Nombre: Yup.string().required("Campo requerido"),
+            ApPaterno: Yup.string().required("Campo requerido"),
+            ApMaterno: Yup.string().required("Campo requerido"),
+            FullUserName: Yup.string().required("Campo requerido"),
+            RFC: Yup.string().required("Campo requerido"),
+            CURP: Yup.string().required("Campo requerido"),
+            Sexo: Yup.string().required("Campo requerido"),
+            FechaNac: Yup.string().required("Campo requerido"),
+            Email: Yup.string().required("Campo requerido"),
+            TelMovil: Yup.string().required("Campo requerido"),
         }),
         onSubmit: async (values) => {
-            // Mostramos el Loading.
             setLoading(true);
-
-            // Reiniciamos los estados de las alertas de exito y error.
             setMensajeErrorAlert(null);
             setMensajeExitoAlert(null);
 
-            // Try-catch para manejar errores.
             try {
-                // Extraer los datos de los campos de la ventana modal que ya tiene Formik.
                 const vendedor = OrdenesVendedorValues(values);
-                // Llamamos al servicio para agregar una nueva orden
                 await AddOneVendedor(vendedor);
-                // Si no hubo errores, mostramos el mensaje de exito.
-                setMensajeExitoAlert("Vendedor creado y guardada correctamente");
-            } catch (e) {
-                setMensajeExitoAlert(null);
+                setMensajeExitoAlert("Vendedor creado y guardado correctamente");
+            } catch (error) {
                 setMensajeErrorAlert("No se pudo crear el vendedor");
             }
 
-            // Ocultamos el Loading.
             setLoading(false);
         },
     });
@@ -300,7 +301,7 @@ const AddVendedorModal = ({ AddVendedorShowModal, setAddVendedorShowModal }) => 
                         loadingPosition="start"
                         startIcon={<SaveIcon />}
                         variant="contained"
-                        //onClick={() => useFormik()}
+                        onClick={() => AddOneVendedor(false)}
                         type="submit"
                         disabled={!!mensajeExitoAlert}
 

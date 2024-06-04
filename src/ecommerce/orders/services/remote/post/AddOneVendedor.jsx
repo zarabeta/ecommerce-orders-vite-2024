@@ -2,7 +2,7 @@ import axios from "axios";
 
 export function AddOneVendedor(vendedor) {
     return new Promise((resolve, reject) => {
-        axios.post(import.meta.env.VITE_API_PERSONS_URL, vendedor)
+        axios.post(import.meta.env.VITE_API_ORDERS_URL, vendedor)
             .then((response) => {
                 const data = response.data;
                 if (!data.success) {
